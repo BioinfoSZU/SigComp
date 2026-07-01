@@ -1,0 +1,2 @@
+include LICENSE README.md sigcomp/version.py
+recursive-include sigcomp/pretrained_models *.pth

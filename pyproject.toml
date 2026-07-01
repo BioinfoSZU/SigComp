@@ -1,0 +1,63 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sigcomp"
+dynamic = ["version"]
+description = "SigComp — learned compressor for nanopore signal data"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Shaohui Xie" },
+]
+keywords = ["nanopore", "compression", "signal"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+dependencies = [
+    "numpy==1.26.4",
+    "torch",
+    "torchao",
+    "triton",
+    "pod5",
+    "pyslow5",
+    "numcodecs",
+    "rich",
+    "fast-rice==0.1.0",
+    "tqdm",
+    "tensorboard",
+]
+
+[project.scripts]
+sigcomp = "sigcomp.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/BioinfoSZU/SigComp"
+Repository = "https://github.com/BioinfoSZU/SigComp"
+Issues = "https://github.com/BioinfoSZU/SigComp/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["sigcomp*"]
+
+[tool.setuptools.package-data]
+sigcomp = ["pretrained_models/*.pth"]
+
+[tool.setuptools.dynamic]
+version = { attr = "sigcomp.version.__version__" }
