@@ -21,7 +21,7 @@ We recommend installing SigComp in a [conda](https://www.anaconda.com/download/s
 conda create -n sigcomp python=3.10
 conda activate sigcomp
 
-sudo apt-get install libzstd1-dev
+sudo apt-get install libzstd-dev
 export PYSLOW5_ZSTD=1  # for pyslow5 with zstd enabled 
 pip install sigcomp -i https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cu126
 ```
