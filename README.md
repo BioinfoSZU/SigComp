@@ -2,7 +2,7 @@ SigComp: A learned compressor for nanopore sequencing signal data
 -----
 
 SigComp is a learned compressor for nanopore sequencing signal data, currently support ONT R10.4.1 and RNA004 datasets.
-It compresses POD5 / BLOW5 (SLOW5) reads into a `.sigcomp` file using a quantized MLP entropy model losslessly.
+It compresses signal data from POD5 / BLOW5 (SLOW5) files into a `.sigcomp` file using a quantized MLP entropy model losslessly.
 
 ## 🚀 Download and Installation
 
@@ -73,7 +73,7 @@ sigcomp compressor <compress|decompress|inspect|index|view> [options]
 
 ### Compress (`compress`)
 
-Compress a POD5 or BLOW5/SLOW5 signal file into a `.sigcomp` container.
+Compress nanopore signal data from a POD5 or BLOW5/SLOW5 file into a `.sigcomp` archive (All read metadata in original POD5 or BLOW5 file are also stored in the archive).
 
 ```text
 usage: sigcomp compressor compress [-h] -i INPUT -o OUTPUT [-m MODEL_PATH] [-g GPU] [-b BATCH_SIZE] [-B BATCH_NUMBER] [-L CHUNK_LEN] [-c CHUNK_SIZE]
@@ -121,10 +121,10 @@ During `compress`, if no custom `--model-path` is provided, the model is **auto-
 #### Examples
 
 ```shell
-# Lossless compression of a POD5 file (uses the default lossless model)
+# Lossless compression given a POD5 file (uses the default lossless model)
 sigcomp compressor compress -i reads.pod5 -o reads.sigcomp
 
-# Lossless compression of a BLOW5/SLOW5 file
+# Lossless compression given a BLOW5/SLOW5 file
 sigcomp compressor compress -i reads.blow5 -o reads.sigcomp
 
 # Lossy compression (auto-selects the default lossy model)
@@ -178,7 +178,7 @@ sigcomp compressor decompress -i reads.sigcomp -o reads.decompressed.bin
 ```
 
 > **⚠️ Note — SigComp only support decompress to the original source format.**
-> SigComp preserves the source file's metadata (POD5 run info / BLOW5 headers) so it can only decompress back to the **same format it was compressed from**, or to a raw `.bin` signal dump.
+> SigComp preserves the source file's metadata structure so it can only decompress back to the **same format it was compressed from**, or to a raw `.bin` signal dump.
 
 ### Inspect / Index / View
 
@@ -190,7 +190,7 @@ usage: sigcomp compressor view    [-h] -i INPUT [-o OUTPUT] [-m MODEL_PATH] [-g 
 ```
 
 ```shell
-# Show file metadata & statistics
+# Show file metadata & compression metrics statistics
 sigcomp compressor inspect -i reads.sigcomp
 
 # Build a random-access index (.idx) to enable `view`
@@ -328,7 +328,7 @@ sigcomp ptq \
 
 ## ✅ Validation (`check`)
 
-Validate that a decompressed POD5 file matches the original POD5 (including read IDs, signal array and other fields).
+Validate that a decompressed POD5 file matches the original POD5 (including signal array, read IDs and other metadata).
 
 ```text
 usage: sigcomp check [-h] --pod5 POD5 --decomp DECOMP [--sample-n SAMPLE_N] [--sample-ratio SAMPLE_RATIO] [--head HEAD]
