@@ -1,0 +1,9 @@
+include LICENSE README.md pyproject.toml setup.py .gitattributes .gitignore
+include sigcomp/*.py
+include sigcomp/multi_gpu.sh sigcomp/multi_cpu_socket.sh
+recursive-include sigcomp/pretrained_models *.pth
+global-exclude *.py[cod]
+prune sigcomp/__pycache__
+prune sigcomp/tests
+prune build
+prune dist

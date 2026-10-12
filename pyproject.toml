@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=77.0.3", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sigcomp"
+dynamic = ["version"]
+description = "SigComp — integer-model nanopore signal compression on CPUs and GPUs"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Shaohui Xie" }]
+keywords = ["nanopore", "compression", "signal", "cpu", "gpu"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "numpy>=1.26,<2",
+    "torch>=2.8",
+    "numba>=0.59",
+    "pod5",
+    "pyslow5",
+    "numcodecs",
+    "rich",
+    "fast-rice==0.1.0",
+    "tqdm",
+    "tensorboard",
+]
+
+[project.scripts]
+sigcomp = "sigcomp.__main__:main"
+sigcomp-codec = "sigcomp.main:main"
+sigcomp-multi-gpu = "sigcomp.multi_gpu:main"
+sigcomp-multi-cpu-socket = "sigcomp.multi_cpu_socket:main"
+
+[project.urls]
+Homepage = "https://github.com/BioinfoSZU/SigComp"
+Repository = "https://github.com/BioinfoSZU/SigComp"
+Issues = "https://github.com/BioinfoSZU/SigComp/issues"
+
+[tool.setuptools]
+packages = ["sigcomp"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+sigcomp = ["pretrained_models/*.pth", "multi_gpu.sh", "multi_cpu_socket.sh"]
+
+[tool.setuptools.dynamic]
+version = { attr = "sigcomp.version.__version__" }
