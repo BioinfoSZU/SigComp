@@ -367,4 +367,4 @@ Our GPU-accelerated range coder is a [Triton](https://github.com/triton-lang/tri
 ## ©️ Copyright
 
 Copyright 2026 Zexuan Zhu <zhuzx@szu.edu.cn>.<br>
-This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/BioinfoSZU/SigComp/blob/main/LICENSE) file for details.
+This project is licensed under the Apache License 2.0. See the [LICENSE](./LICENSE) file for details.
